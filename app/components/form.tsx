@@ -5,18 +5,21 @@ import { Slider } from "./ui/slider";
 import { Input } from "./ui/input";
 import { useSimulation } from "~/context/simulationCtx";
 import { useEffect, useState } from "react";
-import { DiameterIcon, FastForwardIcon } from "lucide-react";
+import { CircleAlertIcon, CircleDashedIcon, DiameterIcon, FastForwardIcon } from "lucide-react";
 
 export default function Form() {
   const { simulation, setSimulation } = useSimulation()
 
   const [diametro, setDiametro] = useState<number>(simulation?.asteroid?.diametro ?? 0)
   const [velocidad, setVelocidad] = useState<number>(simulation?.asteroid?.velocidad ?? 0)
+  const [densidad, setDensidad] = useState<number>(simulation?.asteroid?.densidad ?? 0)
 
   useEffect(() => {
     setDiametro(simulation?.asteroid?.diametro ?? 0)
     setVelocidad(simulation?.asteroid?.velocidad ?? 0)
-  }, [simulation])
+    setDensidad(simulation?.asteroid.densidad ?? 0)
+  }, [simulation.asteroid])
+
   const handleForm = () => {
     setSimulation(prev => ({
       ...prev,
@@ -24,12 +27,13 @@ export default function Form() {
         ...prev?.asteroid,
         diametro,
         velocidad,
+        densidad
       },
     }))
   }
 
   return (
-    <div className="p-5 flex flex-col gap-5">
+    <>
       <div className="flex flex-col gap-2">
         <Label htmlFor="diametro">
           <DiameterIcon /> Diametro (m)
@@ -58,9 +62,23 @@ export default function Form() {
           defaultValue={simulation.asteroid.velocidad}
         />
       </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="densidad">
+          <CircleDashedIcon /> Densidad
+        </Label>
+        <Input
+          id="densidad"
+          type="number"
+          min={1}
+          max={100000}
+          placeholder="Densidad"
+          onChange={(e) => setDensidad(Number(e.target.value))}
+          defaultValue={simulation.asteroid.densidad}
+        />
+      </div>
       <div>
         <Button onClick={handleForm}>Cambiar datos</Button>
       </div>
-    </div>
+    </>
   )
 }

@@ -20,11 +20,14 @@ export default function ClickHandle() {
   })
 
   if (pos) return (
-    <Circle {...({ center: pos, pathOptions: { fillColor: "red" }, radius: data.diametroCrater / 2 } as any)} >
-      <Circle {...({ center: pos, pathOptions: { fillColor: "green" }, radius: data.radioDeZonaDevastda * 1000 } as any)} >
-        <Tooltip sticky>Zona devastada {Math.round(simulation.data.radioDeZonaDevastda)} km</Tooltip>
+    <Circle {... ({ center: pos, pathOptions: { fillColor: "blue" }, radius: data.radioDeBolaDeFuego }) as any}>
+      <Tooltip {...({ sticky: true }) as any} >Zona incenedaracion {Math.round(simulation.data.radioDeBolaDeFuego)} m</Tooltip>
+      <Circle {...({ center: pos, pathOptions: { fillColor: "red" }, radius: data.diametroCrater / 2 } as any)} >
+        <Tooltip {...({ sticky: true })}>Crater {Math.round(simulation.data.diametroCrater)} m</Tooltip>
+        <Circle {...({ center: pos, pathOptions: { fillColor: "green" }, radius: data.radioDeZonaDevastda * 1000 } as any)} >
+          <Tooltip {...({ sticky: true })}>Zona devastada {Math.round(simulation.data.radioDeZonaDevastda)} km</Tooltip>
+        </Circle>
       </Circle>
-      <Tooltip sticky>Crater {Math.round(simulation.data.diametroCrater)} m</Tooltip>
     </Circle>
   )
   return null

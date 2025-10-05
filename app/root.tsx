@@ -10,6 +10,7 @@ import {
 
 import "./app.css";
 import { SimulationCtxProvider } from "./context/simulationCtx";
+import { getAllNEOs } from "./lib/neoNasaAPI";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -40,6 +41,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
+}
+
+export function HydrateFallback() {
+  return <h1>Cargando...</h1>;
 }
 
 export default function App() {
